@@ -19,16 +19,7 @@ if (contenedor) {
     div.innerHTML = `
       <img src="${p.imagen}" alt="${p.nombre}">
       <h3>${p.nombre}</h3>
-      <p class="precio">
-        ${p.precio ? "$" + p.precio : "Precio próximamente"}
-      </p>
-      <a 
-        href="https://wa.me/521XXXXXXXXXX?text=Quiero%20comprar%20${p.nombre}" 
-        class="btn"
-        target="_blank"
-      >
-        Pedir por WhatsApp
-      </a>
+      <p>Precio próximamente</p>
     `;
     contenedor.appendChild(div);
   });
