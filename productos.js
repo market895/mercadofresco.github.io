@@ -1,18 +1,19 @@
-const productos = [
-  { nombre: "Apio", precio: null, imagen: "img/apio.jpg" },
-  { nombre: "Papa", precio: null, imagen: "img/papa.jpg" },
-  { nombre: "Zanahoria", precio: null, imagen: "img/zanahoria.jpg" },
-  { nombre: "Coliflor", precio: null, imagen: "img/coliflor.jpg" },
-  { nombre: "Lechuga", precio: null, imagen: "img/lechuga.jpg" },
-  { nombre: "Remolacha", precio: null, imagen: "img/remolacha.jpg" },
-  { nombre: "Cilantro", precio: null, imagen: "img/cilantro.jpg" },
-  { nombre: "Hierbabuena", precio: null, imagen: "img/hierbabuena.jpg" },
-  { nombre: "Perejil", precio: null, imagen: "img/perejil.jpg" }
-];
+document.addEventListener("DOMContentLoaded", function () {
 
-const contenedor = document.getElementById("productos");
+  const productos = [
+    { nombre: "Apio", precio: null, imagen: "img/apio.jpg" },
+    { nombre: "Papa", precio: null, imagen: "img/papa.jpg" },
+    { nombre: "Zanahoria", precio: null, imagen: "img/zanahoria.jpg" },
+    { nombre: "Coliflor", precio: null, imagen: "img/coliflor.jpg" },
+    { nombre: "Lechuga", precio: null, imagen: "img/lechuga.jpg" },
+    { nombre: "Remolacha", precio: null, imagen: "img/remolacha.jpg" },
+    { nombre: "Cilantro", precio: null, imagen: "img/cilantro.jpg" },
+    { nombre: "Hierbabuena", precio: null, imagen: "img/hierbabuena.jpg" },
+    { nombre: "Perejil", precio: null, imagen: "img/perejil.jpg" }
+  ];
 
-if (contenedor) {
+  const contenedor = document.getElementById("productos");
+
   productos.forEach(p => {
     const div = document.createElement("div");
     div.className = "producto-card";
@@ -23,6 +24,8 @@ if (contenedor) {
     `;
     contenedor.appendChild(div);
   });
-}
 
+});
+
+   
 
