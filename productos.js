@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   const productos = [
-    { nombre: "Apio", precio: null, imagen: "imagen/apio.jpg" },
-    { nombre: "Papa", precio: null, imagen: "imagen/papa.jpg" },
-    { nombre: "Zanahoria", precio: null, imagen: "imagen/zanahoria.jpg" },
-    { nombre: "Coliflor", precio: null, imagen: "imagen/coliflor.jpg" },
-    { nombre: "Lechuga", precio: null, imagen: "imagen/lechuga.jpg" },
-    { nombre: "Remolacha", precio: null, imagen: "imagen/remolacha.jpg" },
-    { nombre: "Cilantro", precio: null, imagen: "imagen/cilantro.jpg" },
-    { nombre: "Hierbabuena", precio: null, imagen: "imagen/hierbabuena.jpg" },
-    { nombre: "Perejil", precio: null, imagen: "imagen/perejil.jpg" }
+    { nombre: "Apio", precio: null, imagen: "img/apio.jpg" },
+    { nombre: "Papa", precio: null, imagen: "img/papa.jpg" },
+    { nombre: "Zanahoria", precio: null, imagen: "img/zanahoria.jpg" },
+    { nombre: "Coliflor", precio: null, imagen: "img/coliflor.jpg" },
+    { nombre: "Lechuga", precio: null, imagen: "img/lechuga.jpg" },
+    { nombre: "Remolacha", precio: null, imagen: "img/remolacha.jpg" },
+    { nombre: "Cilantro", precio: null, imagen: "img/cilantro.jpg" },
+    { nombre: "Hierbabuena", precio: null, imagen: "img/hierbabuena.jpg" },
+    { nombre: "Perejil", precio: null, imagen: "img/perejil.jpg" }
   ];
 
   const contenedor = document.getElementById("productos");
@@ -26,6 +26,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
-
-   
-
