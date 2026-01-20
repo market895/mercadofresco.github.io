@@ -10,22 +10,15 @@ const productos = [
   { nombre: "Perejil", precio: null, imagen: "image/perejil.jpg" }
 ];
 
-
 const contenedor = document.getElementById("productos");
 
-if (contenedor) {
-  productos.forEach(p => {
-    contenedor.innerHTML += `
-      <div class="producto-card">
-        <img src="${p.imagen}" alt="${p.nombre}">
-        <h3>${p.nombre}</h3>
-        <p class="precio">
-          ${p.precio ? `$${p.precio}` : "Precio próximamente"}
-        </p>
-        <a href="https://wa.me/521XXXXXXXXXX?text=Quiero%20comprar%20${p.nombre}" class="btn">
-          Pedir por WhatsApp
-        </a>
-      </div>
-    `;
-  });
-}
+productos.forEach(p => {
+  const div = document.createElement("div");
+  div.className = "producto";
+  div.innerHTML = `
+    <img src="${p.imagen}" alt="${p.nombre}">
+    <h3>${p.nombre}</h3>
+    <p>${p.precio ? "$" + p.precio : "Precio próximamente"}</p>
+  `;
+  contenedor.appendChild(div);
+});
