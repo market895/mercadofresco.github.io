@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tienda Online</title>
+  <title>Mi Tienda Online</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -10,36 +10,44 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f5f5f5;
+      background: #f2f2f2;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
     }
 
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
     }
 
     .producto {
       background: white;
-      padding: 15px;
       border-radius: 10px;
+      padding: 15px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
     }
 
     button {
       background: #25d366;
       color: white;
       border: none;
-      padding: 10px 15px;
+      padding: 10px;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     button:hover {
@@ -47,25 +55,40 @@
     }
 
     .carrito {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 30px auto;
       background: white;
       padding: 20px;
       border-radius: 10px;
     }
 
-    /* BOTÓN WHATSAPP FLOTANTE */
+    .carrito-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 0;
+    }
+
+    .carrito-item button {
+      background: red;
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+
+    /* BOTÓN WHATSAPP */
     .whatsapp-float {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #25d366;
+      background: #25d366;
       color: white;
       font-size: 28px;
       padding: 15px;
       border-radius: 50%;
       text-decoration: none;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
     }
   </style>
 </head>
@@ -76,18 +99,21 @@
 
 <div class="productos">
   <div class="producto">
+    <img src="https://via.placeholder.com/300x200" alt="Producto 1">
     <h3>Producto 1</h3>
     <p>$100</p>
     <button onclick="agregar('Producto 1', 100)">Agregar</button>
   </div>
 
   <div class="producto">
+    <img src="https://via.placeholder.com/300x200" alt="Producto 2">
     <h3>Producto 2</h3>
     <p>$200</p>
     <button onclick="agregar('Producto 2', 200)">Agregar</button>
   </div>
 
   <div class="producto">
+    <img src="https://via.placeholder.com/300x200" alt="Producto 3">
     <h3>Producto 3</h3>
     <p>$300</p>
     <button onclick="agregar('Producto 3', 300)">Agregar</button>
@@ -96,7 +122,7 @@
 
 <div class="carrito">
   <h2>🛒 Carrito</h2>
-  <ul id="lista"></ul>
+  <div id="carrito"></div>
   <h3 id="total"></h3>
   <button onclick="enviarWhatsApp()">Finalizar pedido por WhatsApp</button>
 </div>
@@ -108,20 +134,39 @@
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
   function agregar(nombre, precio) {
-    carrito.push({ nombre, precio });
+    let item = carrito.find(p => p.nombre === nombre);
+    if (item) {
+      item.cantidad++;
+    } else {
+      carrito.push({ nombre, precio, cantidad: 1 });
+    }
+    guardar();
+  }
+
+  function eliminar(nombre) {
+    carrito = carrito.filter(p => p.nombre !== nombre);
+    guardar();
+  }
+
+  function guardar() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
     mostrar();
   }
 
   function mostrar() {
-    const lista = document.getElementById("lista");
+    const contenedor = document.getElementById("carrito");
     const total = document.getElementById("total");
-    lista.innerHTML = "";
+    contenedor.innerHTML = "";
     let suma = 0;
 
-    carrito.forEach(item => {
-      suma += item.precio;
-      lista.innerHTML += `<li>${item.nombre} - $${item.precio}</li>`;
+    carrito.forEach(p => {
+      suma += p.precio * p.cantidad;
+      contenedor.innerHTML += `
+        <div class="carrito-item">
+          <span>${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}</span>
+          <button onclick="eliminar('${p.nombre}')">X</button>
+        </div>
+      `;
     });
 
     total.innerText = "Total: $" + suma;
@@ -133,12 +178,12 @@
       return;
     }
 
-    let mensaje = "Hola, quiero comprar:%0A";
+    let mensaje = "Hola, quiero hacer este pedido:%0A";
     let suma = 0;
 
-    carrito.forEach(item => {
-      mensaje += `- ${item.nombre} $${item.precio}%0A`;
-      suma += item.precio;
+    carrito.forEach(p => {
+      mensaje += `- ${p.nombre} x${p.cantidad} $${p.precio * p.cantidad}%0A`;
+      suma += p.precio * p.cantidad;
     });
 
     mensaje += `%0ATotal: $${suma}`;
